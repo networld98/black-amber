@@ -1,0 +1,24 @@
+<div id="search" class="input-group">
+  <input type="text" name="search" value="{{ search }}" placeholder="{{ text_search }}" class="form-control input-lg" />
+  <span class="input-group-btn" style="display:none;">
+    <button type="button" class="btn btn-default btn-lg"><i class="fa fa-search"></i></button>
+  </span>
+</div>
+<script type="text/javascript">
+  $(document).ready(function() {
+    if(document.documentElement.clientWidth < 769) {
+      var myTimeout;
+      $('#search input').on('keyup', function () {
+        var $this = $(this),
+                val = $this.val();
+
+        if (val.length >= 1) {
+          clearTimeout(myTimeout);
+          myTimeout = setTimeout(function () {
+            $('#search button').trigger('click');
+          }, 1500);
+        }
+      });
+    }
+  });
+</script>

@@ -1,0 +1,97 @@
+<div id="cart" class="btn-group btn-block">
+  <button type="button" data-toggle="dropdown" data-loading-text="{{ text_loading }}"><i class="fa fa-shopping-cart"></i> <span id="cart-total">{{ text_items }}</span></button>
+  <div class="off-canvas--viewport">
+    <div class="off-canvas--overlay"></div>
+    <div class="close">
+      <svg class="icon--root icon--cross" viewBox="0 0 20 20">
+        <path d="M10 8.727L17.944.783l1.273 1.273L11.273 10l7.944 7.944-1.273 1.273L10 11.273l-7.944 7.944-1.273-1.273L8.727 10 .783 2.056 2.056.783 10 8.727z" fill-rule="nonzero"></path>
+      </svg>
+    </div>
+    <div class="off-canvas--right-sidebar">
+      <div class="cart--root">
+        <div class="cart--header">
+          <h1 class="cart--title">Кошик</h1>
+        </div>
+        <div class="cart--body">
+          {% if products or vouchers %}
+            {% for product in products %}
+              <div class="cart--item">
+                <div class="cart--item--title">
+                  <div class="block-heading">
+                     <a href="{{ product.href }}">{{ product.name }}
+                         {% if product.option %}
+                             {% for option in product.option %}
+                                 <span>({{ option.name }}: {{ option.value }})</span> {% endfor %}
+                         {% endif %}
+                     </a>
+                  </div>
+                </div>
+                <div class="cart--item--image">
+                  {% if product.thumb %}
+                    <a href="{{ product.href }}">
+                    <div class="image--root">
+                      <div class="image--container">
+                        <img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}"  class="lazyautosizes lazyloaded"  />
+                      </div>
+                    </div>
+                    </a>
+                  {% endif %}
+                </div>
+                <div class="cart--item--info">
+                  <div class="cart--item--price">
+                    <div class="cart--item--total money">
+                      {{ product.quantity }} x {{ product.price }}
+                    </div>
+                  </div>
+                  <div class="cart--item--quantity">
+                    <div class="cart--item--remove">
+                      <button type="button" onclick="cart.remove('{{ product.cart_id }}');" title="{{ button_remove }}" class="remove">{{ button_remove }}</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+            {% for voucher in vouchers %}
+              <tr>
+                <td class="text-center"></td>
+                <td class="text-left">{{ voucher.description }}</td>
+                <td class="text-right">x&nbsp;1
+                </td>
+                <td class="text-right">{{ voucher.amount }}</td>
+                <td class="text-center text-danger"><button type="button" onclick="voucher.remove('{{ voucher.key }}');" title="{{ button_remove }}" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></td>
+              </tr>
+            {% endfor %}
+          {% else %}
+              <p class="text-center none-items-cart">{{ text_empty }}</p>
+          {% endif %}
+        </div>
+        <div class="cart--footer">
+          <div class="cart--totals">
+            {% if products or vouchers %}
+              <div class="cart--total">
+                {% for total in totals %}
+                  <div class="block-heading">{{ total.title }}</div>
+                  <div class="cart--total--price money">{{ total.text }}</div>
+                {% endfor %}
+              </div>
+            {% endif %}
+            <div class="cart--nav">
+              <div class="cart--continue-shopping" data-item="block-link">
+                <a href="/index.php?route=checkout/cart" class="btn btn-primary">Перейти до кошика</a>
+              </div>
+                <div class="cart--continue-shopping" data-item="block-link">
+                    <a class="close-cart">Продовжити покупки</a>
+                </div>
+              {% if products or vouchers %}
+              <div class="cart--checkout-button" data-item="button">
+                <a href="{{ checkout }}">
+                    <span class="cart-button--text">
+                      {{ text_checkout }}
+                    </span>
+                </a>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+</div>

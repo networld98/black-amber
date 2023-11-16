@@ -1,0 +1,37 @@
+{{ header }}
+<div id="information-youtube" class="catalog--root">
+  <ul class="breadcrumbs--root">
+    {% for breadcrumb in breadcrumbs %}
+      <li class="block-link"><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+    {% endfor %}
+  </ul>
+  <div class="row">{{ column_left }}
+      {% if column_left and column_right %}
+          {% set class = 'col-sm-6' %}
+      {% elseif column_left or column_right %}
+          {% set class = 'col-sm-9' %}
+      {% else %}
+          {% set class = 'col-sm-12' %}
+      {% endif %}
+    <div id="content" class="{{ class }}">{{ content_top }}
+      <h1>{{ heading_title }}</h1>
+        {{ description }}
+      <div class="row">
+          {% for youtube in youtubes %}
+        <div class="youtube-item col-sm-12">
+          <div class="row">
+            <div class="col-sm-4">
+              <a href="https://www.youtube.com/embed/{{ youtube.id }}" class="lightview"><img style="width:100%" src="{{ youtube.url }}" alt="{{ youtube.title }}"></a>
+            </div>
+            <div class="col-sm-8">
+              <a href="https://www.youtube.com/embed/{{ youtube.id }}" class="lightview"><h3>{{ youtube.title }}</h3></a>
+              <p>{{ youtube.desc }}</p>
+            </div>
+          </div>
+        </div>
+          {% endfor %}
+      </div>
+        {{ content_bottom }}</div>
+      {{ column_right }}</div>
+</div>
+{{ footer }}

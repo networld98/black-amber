@@ -1,0 +1,68 @@
+{% if categories %}
+<div class="container drop-catalog-menu">
+  <nav class="navbar">
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+      <div class="filter-block">
+        <div class="title">Колекції</div>
+        <ul>
+          {% for filter in filters %}
+            <li><a href="/index.php?route=product/category&path=134&filter={{ filter.filter_id }}">{{ filter.name }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+      <ul class="nav navbar-nav">
+        <li class="back-title-menu">
+          <div class="close">
+            <svg class="icon--root icon--cross" viewBox="0 0 20 20">
+              <path d="M10 8.727L17.944.783l1.273 1.273L11.273 10l7.944 7.944-1.273 1.273L10 11.273l-7.944 7.944-1.273-1.273L8.727 10 .783 2.056 2.056.783 10 8.727z" fill-rule="nonzero"></path>
+            </svg>
+          </div>
+          <svg class="icon--chevron-down" viewBox="0 0 10 6">
+            <path d="M5 4.058L8.53.528l.707.707-3.53 3.53L5 5.472.763 1.235 1.47.528 5 4.058z" fill-rule="nonzero"></path>
+          </svg>
+          Назад
+        </li>
+        {% for key, category in categories %}
+          {% if category.category_id != '134' %}
+            {% if category.children  %}
+            <li class="dropdown"><a href="{{ category.href }}" class="dropdown-toggle" data-toggle="dropdown">{{ category.name }} <div class="oop_cls_div_exp">+</div></a>
+              <div class="dropdown-menu">
+                <div class="dropdown-inner">
+                  <ul class="list-unstyled">
+                    {% for child in category.children %}
+                    <li><a href="{{ child.href }}">{{ child.name }}</a>
+
+                    </li>
+                    {% endfor %}
+                  </ul>
+                  </div>
+                <a href="{{ category.href }}" class="see-all">{{ text_all }} {{ category.name }}</a> </div>
+            </li>
+            {% else %}
+            <li><a href="{{ category.href }}">{{ category.name }}</a></li>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+  </nav>
+</div>
+  <script>
+    $('.catalog-menu-drop').click(function(event){
+      $(this).addClass('active');
+      $('.drop-catalog-menu').addClass('active');
+    });
+    $('.back-title-menu').click(function(event){
+      $('.drop-catalog-menu').removeClass('active');
+    });
+    $(document).ready(function() {
+      $('.catalog-menu-drop').click(function(event){
+        $(this).addClass('active');
+        $('.drop-catalog-menu').addClass('active');
+      });
+      $('.back-title-menu').click(function(event){
+        $('.drop-catalog-menu').removeClass('active');
+      });
+    })
+  </script>
+{% endif %} 

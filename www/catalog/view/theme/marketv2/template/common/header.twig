@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<!--[if IE 8 ]><html dir="{{ direction }}" lang="{{ lang }}" class="ie8"><![endif]-->
+<!--[if IE 9 ]><html dir="{{ direction }}" lang="{{ lang }}" class="ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html dir="{{ direction }}" lang="{{ lang }}">
+<!--<![endif]-->
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{{ title }}</title>
+    <base href="{{ base }}" />
+    {% if description %}
+        <meta name="description" content="{{ description }}" />
+    {% endif %}
+    {% if keywords %}
+        <meta name="keywords" content="{{ keywords }}" />
+    {% endif %}
+    <meta name="format-detection" content="telephone=no">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="57x57" href="/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+{#    <link rel="manifest" href="/favicon/manifest.json">#}
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/favicon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <meta property="og:title" content="{{ title }}">
+    <meta property="og:description" content="{{ description }}">
+    <meta property="og:url" content="{{ base }}">
+    <meta property="og:image" content="{{ logo }}">
+    <meta property="og:image:url" content="{{ logo }}">
+    <meta property="og:image:type" content="article">
+    <meta property="og:image:width" content="300">
+    <meta property="og:image:height" content="300">
+
+    <meta name="facebook-domain-verification" content="k5ew5duhcjn2awm3qbo1gc0oxiqga2" />
+
+    <script src="catalog/view/javascript/jquery/jquery-2.1.1.min.js" type="text/javascript"></script>
+    <link href="catalog/view/javascript/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen" />
+    <script src="catalog/view/javascript/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <link href="catalog/view/javascript/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700" rel="stylesheet" type="text/css" />
+    <link href="catalog/view/theme/marketv2/stylesheet/stylesheet.css" rel="stylesheet">
+    <link href="catalog/view/theme/marketv2/stylesheet/normalize.css" rel="stylesheet">
+    <link href="catalog/view/javascript/select2/select2.min.css" rel="stylesheet">
+    <link href="catalog/view/theme/marketv2/stylesheet/custom.css" rel="stylesheet">
+    <link href="catalog/view/theme/marketv2/stylesheet/lightview/lightview.css" rel="stylesheet">
+    {% for style in styles %}
+        <link href="{{ style.href }}" type="text/css" rel="{{ style.rel }}" media="{{ style.media }}" />
+    {% endfor %}
+    {% for script in scripts %}
+        <script src="{{ script }}" type="text/javascript"></script>
+    {% endfor %}
+    <script src="catalog/view/javascript/select2/select2.min.js"></script>
+    <script src="catalog/view/javascript/common.js" type="text/javascript"></script>
+    <script type="text/javascript" src="catalog/view/javascript/excanvas/excanvas.js"></script>
+    <script type="text/javascript" src="catalog/view/javascript/spinners/spinners.min.js"></script>
+    <script type="text/javascript" src="catalog/view/javascript/lightview/lightview.js"></script>
+    {% for link in links %}
+        <link href="{{ link.href }}" rel="{{ link.rel }}" />
+    {% endfor %}
+    {% for analytic in analytics %}
+        {{ analytic }}
+    {% endfor %}
+
+    <!-- Meta Pixel Code -->
+    <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '242718305409799');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+                   src="https://www.facebook.com/tr?id=242718305409799&ev=PageView&noscript=1"
+        /></noscript>
+    <!-- End Meta Pixel Code -->
+
+</head>
+<body>
+{{ column_right }}
+{#<nav id="top">#}
+{#    <div class="container">{{ currency }}#}
+{#        {{ language }}#}
+{#        <div id="top-links" class="nav pull-right">#}
+{#            <ul class="list-inline">#}
+{#                <li><a href="{{ contact }}"><i class="fa fa-phone"></i></a> <span class="hidden-xs hidden-sm hidden-md">{{ telephone }}</span></li>#}
+{#                <li class="dropdown"><a href="{{ account }}" title="{{ text_account }}" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <span class="hidden-xs hidden-sm hidden-md">{{ text_account }}</span> <span class="caret"></span></a>#}
+{#                    <ul class="dropdown-menu dropdown-menu-right">#}
+{#                        {% if logged %}#}
+{#                            <li><a href="{{ account }}">{{ text_account }}</a></li>#}
+{#                            <li><a href="{{ order }}">{{ text_order }}</a></li>#}
+{#                            <li><a href="{{ transaction }}">{{ text_transaction }}</a></li>#}
+{#                            <li><a href="{{ download }}">{{ text_download }}</a></li>#}
+{#                            <li><a href="{{ logout }}">{{ text_logout }}</a></li>#}
+{#                        {% else %}#}
+{#                            <li><a href="{{ register }}">{{ text_register }}</a></li>#}
+{#                            <li><a href="{{ login }}">{{ text_login }}</a></li>#}
+{#                        {% endif %}#}
+{#                    </ul>#}
+{#                </li>#}
+{#                <li><a href="{{ wishlist }}" id="wishlist-total" title="{{ text_wishlist }}"><i class="fa fa-heart"></i> <span class="hidden-xs hidden-sm hidden-md">{{ text_wishlist }}</span></a></li>#}
+{#                <li><a href="{{ shopping_cart }}" title="{{ text_shopping_cart }}"><i class="fa fa-shopping-cart"></i> <span class="hidden-xs hidden-sm hidden-md">{{ text_shopping_cart }}</span></a></li>#}
+{#                <li><a href="{{ checkout }}" title="{{ text_checkout }}"><i class="fa fa-share"></i> <span class="hidden-xs hidden-sm hidden-md">{{ text_checkout }}</span></a></li>#}
+{#                <li class="hidden-xs hidden-sm hidden-md">|</li>#}
+{#                <li class="hidden-xs hidden-sm hidden-md">�� � ��������:</li>#}
+{#                <li><a href="https://facebook.com/groups/644466245762671?ref=bookmarks" title="Facebook"><i class="fa fa-facebook"></i></a></li>#}
+{#                <li><a href="https://vk.com/club64240844" title="Vk"><i class="fa fa-vk"></i> </a></li>#}
+{#            </ul>#}
+{#        </div>#}
+{#    </div>#}
+{#</nav>#}
+<div class="header-wrapper">
+    <header>
+    {#    <div class="container">#}
+            <div class="modal-search">
+                {{ search }}
+                <svg class="icon--root icon--cross close-search-modal" viewBox="0 0 20 20">
+                    <path d="M10 8.727L17.944.783l1.273 1.273L11.273 10l7.944 7.944-1.273 1.273L10 11.273l-7.944 7.944-1.273-1.273L8.727 10 .783 2.056 2.056.783 10 8.727z" fill-rule="nonzero"></path>
+                </svg>
+            </div>
+            <div class="off-canvas--overlay modal-search"></div>
+            <div class="row header--root">
+                <div class="col-xs-1 col-sm-1 hidden-md hidden-lg">
+                    {% if informations %}
+                        <nav class="navbar navbar-default" role="navigation">
+                            <div class="container-fluid">
+                                <div class="navbar-header">
+                                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                    </button>
+                                </div>
+                                <div class="collapse navbar-collapse mobile-menu" id="bs-example-navbar-collapse-1">
+                                    <div class="off-canvas--viewport nav navbar-nav" style="">
+                                        <div class="off-canvas--overlay"></div>
+                                        <div class="close">
+                                            <svg class="icon--root icon--cross" viewBox="0 0 20 20">
+                                                <path d="M10 8.727L17.944.783l1.273 1.273L11.273 10l7.944 7.944-1.273 1.273L10 11.273l-7.944 7.944-1.273-1.273L8.727 10 .783 2.056 2.056.783 10 8.727z" fill-rule="nonzero"></path>
+                                            </svg>
+                                        </div>
+                                        <div class="off-canvas--right-sidebar">
+                                            <p class="icon--search">
+                                                <svg class="icon--root icon--search" viewBox="0 0 20 20">
+                                                    <path d="M14.37 12.86l5.636 5.637-1.414 1.414-5.633-5.632a7.627 7.627 0 01-4.688 1.604c-4.256 0-7.707-3.483-7.707-7.78 0-4.297 3.45-7.78 7.707-7.78s7.707 3.483 7.707 7.78c0 1.792-.6 3.442-1.608 4.758zM8.27 14.084c3.259 0 5.907-2.673 5.907-5.98 0-3.306-2.648-5.98-5.907-5.98-3.258 0-5.907 2.674-5.907 5.98 0 3.307 2.649 5.98 5.907 5.98z" fill-rule="nonzero"></path>
+                                                </svg>
+                                                Пошук
+                                            </p>
+                                            <div class="off-canvas--container">
+                                                <ul>
+                                                    <li><a href="/">{{ text_home }}</a></li>
+                                                    <li class="catalog-menu-drop">
+                                                        <a href="javascript:void(0)">{{ text_catalog }}</a>
+                                                        <svg class="icon--chevron" viewBox="0 0 10 6">
+                                                            <path d="M5 4.058L8.53.528l.707.707-3.53 3.53L5 5.472.763 1.235 1.47.528 5 4.058z" fill-rule="nonzero"></path>
+                                                        </svg>
+                                                    </li>
+{#                                                    <li><a href="{{ youtube }}">{{ text_youtube }}</a></li>#}
+                                                    {% for information in informations %}
+                                                        <li><a href="{{ information.href }}">{{ information.title }}</a></li>
+                                                    {% endfor %}
+                                                    <li><a href="{{ contact }}">{{ text_contact }}</a></li>
+                                                </ul>
+                                                <div class="filter-block mobile">
+                                                    <div class="title">Колекції</div>
+                                                    <ul>
+                                                        {% for filter in filters %}
+                                                            <li><a href="/index.php?route=product/category&path=134&filter={{ filter.filter_id }}">{{ filter.name }}</a></li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </nav>
+                    {% endif %}
+                </div>
+                <div class="col-xs-10 col-sm-9 col-md-11 col-lg-11">
+                    <div id="logo">
+                        {% if logo %}<a href="{{ home }}"><img src="{{ logo }}" title="{{ name }}" alt="{{ name }}" class="img-responsive" /></a>{% else %}
+                            <h1><a href="{{ home }}">{{ name }}</a></h1>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-xs-3 col-sm-2 col-md-1 hidden-xs">
+                    <a>
+                        <svg class="icon--root icon--search" viewBox="0 0 20 20">
+                            <path d="M14.37 12.86l5.636 5.637-1.414 1.414-5.633-5.632a7.627 7.627 0 01-4.688 1.604c-4.256 0-7.707-3.483-7.707-7.78 0-4.297 3.45-7.78 7.707-7.78s7.707 3.483 7.707 7.78c0 1.792-.6 3.442-1.608 4.758zM8.27 14.084c3.259 0 5.907-2.673 5.907-5.98 0-3.306-2.648-5.98-5.907-5.98-3.258 0-5.907 2.674-5.907 5.98 0 3.307 2.649 5.98 5.907 5.98z" fill-rule="nonzero"></path>
+                        </svg>
+                    </a>
+                    <a href="/index.php?route=account/login">
+                        <svg class="icon--root icon--account" viewBox="0 0 20 20">
+                            <path d="M13.33 9.78a9.654 9.654 0 016.32 9.06.9.9 0 01-.9.9H1.25a.9.9 0 01-.9-.9 9.654 9.654 0 016.32-9.06 5.342 5.342 0 116.66 0zM10 9.145a3.542 3.542 0 100-7.085 3.542 3.542 0 000 7.085zm7.799 8.795a7.851 7.851 0 00-15.598 0h15.598z" fill-rule="nonzero"></path>
+                        </svg>
+                    </a>
+                </div>
+                <div class="col-xs-8 col-sm-11 col-md-11 hidden-xs hidden-fix">
+                    {% if informations %}
+                        <nav class="navbar navbar-default" role="navigation">
+                            <div class="container-fluid">
+                                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                    <ul class="nav navbar-nav">
+                                        <li><a href="/">{{ text_home }}</a></li>
+                                        <li class="catalog-menu-drop">
+                                            <a href="javascript:void(0)">{{ text_catalog }}</a>
+                                            <svg class="icon--chevron-down" viewBox="0 0 10 6">
+                                                <path d="M5 4.058L8.53.528l.707.707-3.53 3.53L5 5.472.763 1.235 1.47.528 5 4.058z" fill-rule="nonzero"></path>
+                                            </svg>
+                                            <svg class="icon--chevron-up" viewBox="0 0 10 6">
+                                                <path d="M5 1.942l-3.53 3.53-.707-.707 3.53-3.53L5 .528l4.237 4.237-.707.707L5 1.942z" fill-rule="nonzero"></path>
+                                            </svg>
+                                        </li>
+{#                                        <li><a href="{{ youtube }}">{{ text_youtube }}</a></li>#}
+                                        {% for information in informations %}
+                                            <li><a href="{{ information.href }}">{{ information.title }}</a></li>
+                                        {% endfor %}
+                                        <li><a href="{{ contact }}">{{ text_contact }}</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </nav>
+                    {% endif %}
+                </div>
+                <div class="col-xs-2 col-sm-1">{{ cart }}</div>
+            </div>
+        </div>
+    </header>
+    {{ menu }}
+</div>

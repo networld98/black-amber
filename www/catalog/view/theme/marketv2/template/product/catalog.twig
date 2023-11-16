@@ -1,0 +1,17 @@
+{{ header }}
+<div id="product-catalog" class="catalog--root">
+  <ul class="breadcrumbs--root">
+      {% for breadcrumb in breadcrumbs %}
+        <li class="block-link"><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+      {% endfor %}
+  </ul>
+  <div class="row">{{ column_left }}
+    {% if column_left or column_right %}
+    {% set class = 'col-sm-9' %}
+    {% else %}
+    {% set class = 'col-sm-12' %}
+    {% endif %}
+    <div id="content" class="{{ class }}">{{ content_top }}{{ content_bottom }}</div>
+    {{ column_right }}</div>
+</div>
+{{ footer }}
