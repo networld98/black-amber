@@ -1,4 +1,5 @@
 {{ header }}
+{{ content_top }}
 <div id="checkout-checkout" class="catalog--root">
     <ul class="breadcrumbs--root">
         {% for breadcrumb in breadcrumbs %}
@@ -18,7 +19,7 @@
         {% else %}
             {% set class = 'col-sm-12' %}
         {% endif %}
-        <div id="content" class="{{ class }}">{{ content_top }}
+        <div id="content" class="{{ class }}">
             <h1>Оформлення замовлення</h1>
             <div class="panel-group" id="accordion">
                 {#        <div class="panel panel-default">#}
