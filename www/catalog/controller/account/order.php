@@ -1,6 +1,26 @@
 <?php
 class ControllerAccountOrder extends Controller {
 	public function index() {
+        // Подключаем модели и языковые файлы
+
+        $this->load->language('account/order');
+        $this->load->model('account/order');
+        $this->load->model('localisation/order_status');
+
+
+        // Получаем email пользователя, по которому будем фильтровать заказы
+        $email = $this->customer->getEmail();
+
+        $this->load->model('checkout/order');
+
+        $orders = $this->model_checkout_order->getOrdersByEmail($email);
+
+        // Выводим полученные заказы
+//        echo "<pre>";
+//        print_r($orders);
+//        echo "</pre>";
+
+
 		if (!$this->customer->isLogged()) {
 			$this->session->data['redirect'] = $this->url->link('account/order', '', true);
 
@@ -44,24 +64,29 @@ class ControllerAccountOrder extends Controller {
 
 		$this->load->model('account/order');
 
-		$order_total = $this->model_account_order->getTotalOrders();
+        $order_total = $this->model_account_order->getTotalOrders();
 
-		$results = $this->model_account_order->getOrders(($page - 1) * 10, 10);
-
+		$results =  $this->model_checkout_order->getOrdersByEmail($email);
 		foreach ($results as $result) {
-			$product_total = $this->model_account_order->getTotalOrderProductsByOrderId($result['order_id']);
-			$voucher_total = $this->model_account_order->getTotalOrderVouchersByOrderId($result['order_id']);
+            if($result['order_status_id']!=0){
+                $product_total = $this->model_account_order->getTotalOrderProductsByOrderId($result['order_id']);
+                $voucher_total = $this->model_account_order->getTotalOrderVouchersByOrderId($result['order_id']);
 
-			$data['orders'][] = array(
-				'order_id'   => $result['order_id'],
-				'name'       => $result['firstname'] . ' ' . $result['lastname'],
-				'status'     => $result['status'],
-				'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
-				'products'   => ($product_total + $voucher_total),
-				'total'      => $this->currency->format($result['total'], $result['currency_code'], $result['currency_value']),
-				'view'       => $this->url->link('account/order/info', 'order_id=' . $result['order_id'], true),
-			);
+                $data['orders'][] = array(
+                    'order_id'   => $result['order_id'],
+                    'name'       => $result['firstname'] . ' ' . $result['lastname'],
+                    'status'     => $this->model_localisation_order_status->getOrderStatus($result['order_status_id'])['name'],
+                    'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
+                    'products'   => ($product_total + $voucher_total),
+                    'total'      => $this->currency->format($result['total'], $result['currency_code'], $result['currency_value']),
+                    'view'       => $this->url->link('account/order/info', 'order_id=' . $result['order_id'], true),
+                );
+            }
 		}
+
+        usort($data['orders'], function($a, $b) {
+            return $b['order_id'] - $a['order_id'];
+        });
 
 		$pagination = new Pagination();
 		$pagination->total = $order_total;
@@ -100,9 +125,10 @@ class ControllerAccountOrder extends Controller {
 			$this->response->redirect($this->url->link('account/login', '', true));
 		}
 
-		$this->load->model('account/order');
+        $this->load->model('checkout/order');
+        $this->load->model('account/order');
 
-		$order_info = $this->model_account_order->getOrder($order_id);
+		$order_info = $this->model_checkout_order->getOrder($order_id);
 
 		if ($order_info) {
 			$this->document->setTitle($this->language->get('text_order'));
@@ -238,12 +264,12 @@ class ControllerAccountOrder extends Controller {
 			// Products
 			$data['products'] = array();
 
-			$products = $this->model_account_order->getOrderProducts($this->request->get['order_id']);
+			$products = $this->model_checkout_order->getOrderProducts($this->request->get['order_id']);
 
 			foreach ($products as $product) {
 				$option_data = array();
 
-				$options = $this->model_account_order->getOrderOptions($this->request->get['order_id'], $product['order_product_id']);
+				$options = $this->model_checkout_order->getOrderOptions($this->request->get['order_id'], $product['order_product_id']);
 
 				foreach ($options as $option) {
 					if ($option['type'] != 'file') {
@@ -287,7 +313,7 @@ class ControllerAccountOrder extends Controller {
 			// Voucher
 			$data['vouchers'] = array();
 
-			$vouchers = $this->model_account_order->getOrderVouchers($this->request->get['order_id']);
+			$vouchers = $this->model_checkout_order->getOrderVouchers($this->request->get['order_id']);
 
 			foreach ($vouchers as $voucher) {
 				$data['vouchers'][] = array(
@@ -299,7 +325,7 @@ class ControllerAccountOrder extends Controller {
 			// Totals
 			$data['totals'] = array();
 
-			$totals = $this->model_account_order->getOrderTotals($this->request->get['order_id']);
+			$totals = $this->model_checkout_order->getOrderTotals($this->request->get['order_id']);
 
 			foreach ($totals as $total) {
 				$data['totals'][] = array(
@@ -347,9 +373,9 @@ class ControllerAccountOrder extends Controller {
 			$order_id = 0;
 		}
 
-		$this->load->model('account/order');
+        $this->load->model('checkout/order');
 
-		$order_info = $this->model_account_order->getOrder($order_id);
+		$order_info = $this->model_checkout_order->getOrder($order_id);
 
 		if ($order_info) {
 			if (isset($this->request->get['order_product_id'])) {
