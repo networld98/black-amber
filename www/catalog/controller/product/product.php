@@ -226,7 +226,6 @@ class ControllerProductProduct extends Controller {
             $this->document->addStyle('catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.css');
 
             $data['heading_title'] = $product_info['name'];
-
             $data['text_minimum'] = sprintf($this->language->get('text_minimum'), $product_info['minimum']);
             $data['text_login'] = sprintf($this->language->get('text_login'), $this->url->link('account/login', '', true), $this->url->link('account/register', '', true));
 
@@ -234,9 +233,11 @@ class ControllerProductProduct extends Controller {
 
             $data['tab_review'] = sprintf($this->language->get('tab_review'), $product_info['reviews']);
             $data['product_id'] = (int)$this->request->get['product_id'];
+            $data['ifra'] = $product_info['ifra'];
             $data['manufacturer'] = $product_info['manufacturer'];
             $data['manufacturers'] = $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $product_info['manufacturer_id']);
             $data['model'] = $product_info['model'];
+            $data['review_link'] = $_SERVER['REQUEST_URI'].'#review-block';
             $data['reward'] = $product_info['reward'];
             $data['points'] = $product_info['points'];
             $data['description'] = html_entity_decode($product_info['description'], ENT_QUOTES, 'UTF-8');

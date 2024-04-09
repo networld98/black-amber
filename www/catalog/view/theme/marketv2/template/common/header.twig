@@ -139,6 +139,14 @@
                 </svg>
             </div>
             <div class="off-canvas--overlay modal-search"></div>
+            <div class="header--message">
+                {% if custom_field_1 %}
+                    <div class="message-block-top-header"> {{ custom_field_1 }}</div>
+                {% endif %}
+                {% if custom_field_2 %}
+                    <div class="message-block-bottom-header"> {{ custom_field_2 }}</div>
+                {% endif %}
+            </div>
             <div class="row header--root">
                 <div class="col-xs-1 col-sm-1 hidden-md hidden-lg">
                     {% if informations %}

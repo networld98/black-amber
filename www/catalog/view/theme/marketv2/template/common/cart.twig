@@ -1,97 +1,123 @@
 <div id="cart" class="btn-group btn-block">
-  <button type="button" data-toggle="dropdown" data-loading-text="{{ text_loading }}"><i class="fa fa-shopping-cart"></i> <span id="cart-total">{{ text_items }}</span></button>
-  <div class="off-canvas--viewport">
-    <div class="off-canvas--overlay"></div>
-    <div class="close">
-      <svg class="icon--root icon--cross" viewBox="0 0 20 20">
-        <path d="M10 8.727L17.944.783l1.273 1.273L11.273 10l7.944 7.944-1.273 1.273L10 11.273l-7.944 7.944-1.273-1.273L8.727 10 .783 2.056 2.056.783 10 8.727z" fill-rule="nonzero"></path>
-      </svg>
-    </div>
-    <div class="off-canvas--right-sidebar">
-      <div class="cart--root">
-        <div class="cart--header">
-          <h1 class="cart--title">Кошик</h1>
+    <button type="button" data-toggle="dropdown" data-loading-text="{{ text_loading }}"><i class="fa fa-shopping-cart"></i> <span id="cart-total">{{ text_items }}</span></button>
+    <div class="off-canvas--viewport">
+        <div class="off-canvas--overlay"></div>
+        <div class="close">
+            <svg class="icon--root icon--cross" viewBox="0 0 20 20">
+                <path d="M10 8.727L17.944.783l1.273 1.273L11.273 10l7.944 7.944-1.273 1.273L10 11.273l-7.944 7.944-1.273-1.273L8.727 10 .783 2.056 2.056.783 10 8.727z" fill-rule="nonzero"></path>
+            </svg>
         </div>
-        <div class="cart--body">
-          {% if products or vouchers %}
-            {% for product in products %}
-              <div class="cart--item">
-                <div class="cart--item--title">
-                  <div class="block-heading">
-                     <a href="{{ product.href }}">{{ product.name }}
-                         {% if product.option %}
-                             {% for option in product.option %}
-                                 <span>({{ option.name }}: {{ option.value }})</span> {% endfor %}
-                         {% endif %}
-                     </a>
-                  </div>
+        <div class="off-canvas--right-sidebar">
+            <div class="cart--root">
+                <div class="cart--header">
+                    <h1 class="cart--title">Кошик</h1>
                 </div>
-                <div class="cart--item--image">
-                  {% if product.thumb %}
-                    <a href="{{ product.href }}">
-                    <div class="image--root">
-                      <div class="image--container">
-                        <img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}"  class="lazyautosizes lazyloaded"  />
-                      </div>
-                    </div>
-                    </a>
-                  {% endif %}
+                <div class="cart--body">
+                    {% if products or vouchers %}
+                        {% for product in products %}
+                            <div class="cart--item">
+                                <div class="cart--item--title">
+                                    <div class="block-heading">
+                                        <a href="{{ product.href }}">{{ product.name }}
+                                            {% if product.option %}
+                                                {% for option in product.option %}
+                                                    <span>({{ option.name }}: {{ option.value }})</span> {% endfor %}
+                                            {% endif %}
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="cart--item--image">
+                                    {% if product.thumb %}
+                                        <a href="{{ product.href }}">
+                                            <div class="image--root">
+                                                <div class="image--container">
+                                                    <img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}"  class="lazyautosizes lazyloaded"  />
+                                                </div>
+                                            </div>
+                                        </a>
+                                    {% endif %}
+                                </div>
+
+                                <div class="cart--item--info">
+                                    <div class="cart--item--price">
+                                        <div class="cart--item--total money">
+                                            {{ product.quantity }} x {{ product.price }}
+                                        </div>
+                                    </div>
+                                    <div class="cart--item--quantity">
+                                        <div class="cart--item--remove">
+                                            <button type="button" onclick="cart.remove('{{ product.cart_id }}');" title="{{ button_remove }}" class="remove">{{ button_remove }}</button>
+                                        </div>
+                                    </div>
+                                    {% if product.price == '0грн.'%}
+                                        <div style="color:red;">Подарунок!</div>
+                                    {% endif %}
+                                </div>
+                                <div class="cart--item--info">
+                                </div>
+                            </div>
+                        {% endfor %}
+                        {% for voucher in vouchers %}
+                            <tr>
+                                <td class="text-center"></td>
+                                <td class="text-left">{{ voucher.description }}</td>
+                                <td class="text-right">x&nbsp;1
+                                </td>
+                                <td class="text-right">{{ voucher.amount }}</td>
+                                <td class="text-center text-danger"><button type="button" onclick="voucher.remove('{{ voucher.key }}');" title="{{ button_remove }}" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <p class="text-center none-items-cart">{{ text_empty }}</p>
+                    {% endif %}
                 </div>
-                <div class="cart--item--info">
-                  <div class="cart--item--price">
-                    <div class="cart--item--total money">
-                      {{ product.quantity }} x {{ product.price }}
-                    </div>
-                  </div>
-                  <div class="cart--item--quantity">
-                    <div class="cart--item--remove">
-                      <button type="button" onclick="cart.remove('{{ product.cart_id }}');" title="{{ button_remove }}" class="remove">{{ button_remove }}</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            {% endfor %}
-            {% for voucher in vouchers %}
-              <tr>
-                <td class="text-center"></td>
-                <td class="text-left">{{ voucher.description }}</td>
-                <td class="text-right">x&nbsp;1
-                </td>
-                <td class="text-right">{{ voucher.amount }}</td>
-                <td class="text-center text-danger"><button type="button" onclick="voucher.remove('{{ voucher.key }}');" title="{{ button_remove }}" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></td>
-              </tr>
-            {% endfor %}
-          {% else %}
-              <p class="text-center none-items-cart">{{ text_empty }}</p>
-          {% endif %}
-        </div>
-        <div class="cart--footer">
-          <div class="cart--totals">
-            {% if products or vouchers %}
-              <div class="cart--total">
-                {% for total in totals %}
-                  <div class="block-heading">{{ total.title }}</div>
-                  <div class="cart--total--price money">{{ total.text }}</div>
-                {% endfor %}
-              </div>
-            {% endif %}
-            <div class="cart--nav">
-              <div class="cart--continue-shopping" data-item="block-link">
-                <a href="/index.php?route=checkout/cart" class="btn btn-primary">Перейти до кошика</a>
-              </div>
-                <div class="cart--continue-shopping" data-item="block-link">
-                    <a class="close-cart">Продовжити покупки</a>
-                </div>
-              {% if products or vouchers %}
-              <div class="cart--checkout-button" data-item="button">
-                <a href="{{ checkout }}">
+                <div class="cart--footer">
+                    <div class="cart--totals">
+                        {% if products or vouchers %}
+                            <div class="cart--total">
+                                {% for total in totals %}
+                                    <div class="block-heading">{{ total.title }}</div>
+                                    <div class="cart--total--price money">{{ total.text }}</div>
+                                    <div class="gift-text">
+                                        <span class="wrap-svg"> <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="2em" height="2em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 16 16"><g fill="red" fill-rule="evenodd"><path d="M0 4h16v3H0z"/><path d="M12.66 9.777a.681.681 0 0 1 0 1.029a.87.87 0 0 1-1.14 0L8.485 8.064h-.996l-3.035 2.742a.87.87 0 0 1-1.14 0a.683.683 0 0 1 0-1.029l1.898-1.713L1 8v8h14V8l-4.238.064l1.898 1.713z"/><path d="M11.928.097c-1.159 0-2.623.838-3.96 2.253C6.634.935 5.17.097 4.014.097c-.592 0-1.098.221-1.46.637c-.599.684-.678 2.021-.293 3.304h1.96s-.59-1.007-.428-1.884c.015-.018.078-.051.22-.051c.573 0 1.905.678 3.057 1.935h1.845c1.157-1.264 2.42-1.935 3.013-1.935c.176 0 .22.049.22.049c.124 1.138-.432 1.886-.432 1.886h2.038c.387-1.283.23-2.62-.365-3.304c-.364-.416-.868-.637-1.46-.637z"/></g></svg></span>
+                                        {% if total.value < 5000 %}
+                                            <p>При замовленні на 5000 грн ви зможете обрати безкоштовний зразок у кошику нижче</p>
+                                        {% endif %}
+                                        {% if total.value >= 5000 %}
+                                            <p>Оберіть безкоштовний зразок у кошику нижче</p>
+                                        {% endif %}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <div class="cart--nav">
+                            <div class="cart--continue-shopping" data-item="block-link">
+                                <a href="/index.php?route=checkout/cart" class="btn btn-primary">
+                                    {% for total in totals %}
+                                        {% if total.value >= 5000 %}
+                                            <svg class="total-gift-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="2em" height="2em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 16 16"><g fill="red" fill-rule="evenodd"><path d="M0 4h16v3H0z"/><path d="M12.66 9.777a.681.681 0 0 1 0 1.029a.87.87 0 0 1-1.14 0L8.485 8.064h-.996l-3.035 2.742a.87.87 0 0 1-1.14 0a.683.683 0 0 1 0-1.029l1.898-1.713L1 8v8h14V8l-4.238.064l1.898 1.713z"/><path d="M11.928.097c-1.159 0-2.623.838-3.96 2.253C6.634.935 5.17.097 4.014.097c-.592 0-1.098.221-1.46.637c-.599.684-.678 2.021-.293 3.304h1.96s-.59-1.007-.428-1.884c.015-.018.078-.051.22-.051c.573 0 1.905.678 3.057 1.935h1.845c1.157-1.264 2.42-1.935 3.013-1.935c.176 0 .22.049.22.049c.124 1.138-.432 1.886-.432 1.886h2.038c.387-1.283.23-2.62-.365-3.304c-.364-.416-.868-.637-1.46-.637z"/></g></svg>
+                                        {% endif %}
+                                        <span>Перейти до кошика
+                                        {% if total.value >= 5000 %}
+                                            <br><span class="total-gift-text">і обрати подарунок</span></span>
+                                        {% endif %}
+                                    {% endfor %}
+
+                                </a>
+                            </div>
+                            <div class="cart--continue-shopping" data-item="block-link">
+                                <a class="close-cart">Продовжити покупки</a>
+                            </div>
+                            {% if products or vouchers %}
+                                <div class="cart--checkout-button" data-item="button">
+                                    <a href="{{ checkout }}">
                     <span class="cart-button--text">
                       {{ text_checkout }}
                     </span>
-                </a>
-              </div>
-              {% endif %}
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-</div>
