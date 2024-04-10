@@ -6,7 +6,7 @@
         <div class="title">Колекції</div>
         <ul>
           {% for filter in filters %}
-            <li><a href="/index.php?route=product/category&path=134&filter={{ filter.filter_id }}">{{ filter.name }}</a></li>
+            <li><a href="/catalog&filter={{ filter.filter_id }}">{{ filter.name }}</a></li>
           {% endfor %}
         </ul>
       </div>

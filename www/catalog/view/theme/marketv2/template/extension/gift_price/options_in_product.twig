@@ -6,7 +6,7 @@
     <h3>Продукт  - {{ product_name }}</h3>
     {% for option in options %}
         {% if option.type == 'select' %}
-            <div class="form-group{% if option.required %} required {% endif %}">
+            <div class="form-group{% if option.required %} required {% endif %}" style="display:none">
                 <label class="control-label" for="input-option{{ option.product_option_id }}">{{ option.name }}</label>
                 <select name="option[{{ option.product_option_id }}]" id="input-option{{ option.product_option_id }}" class="form-control">
                     <option value="">{{ text_select }}</option>
@@ -20,7 +20,7 @@
             </div>
         {% endif %}
         {% if option.type == 'radio' %}
-            <div class="form-group{% if option.required %} required {% endif %}">
+            <div class="form-group{% if option.required %} required {% endif %}" style="display:none">
                 <label class="control-label">{{ option.name }}</label>
                 <div id="input-option{{ option.product_option_id }}"> {% for key, option_value in option.product_option_value %}
                         {% if key == 0 %}

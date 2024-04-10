@@ -1778,6 +1778,9 @@ body.active .off-canvas--viewport{
 #account-order .fa {
     font-size: 18px;
 }
+.table-responsive .btn-info {
+    background: transparent;
+}
 .tweet_iframe_widget {width: auto!important;}
 @media (min-width: 768px) and (max-width: 820px) {
     .navbar-default .navbar-nav>li>a {

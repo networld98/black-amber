@@ -1,4 +1,4 @@
-<div id="cart" class="btn-group btn-block">
+<div id="cart" class="btn-group btn-block" {{ remoteItem }} {{ giftIn }}>
     <button type="button" data-toggle="dropdown" data-loading-text="{{ text_loading }}"><i class="fa fa-shopping-cart"></i> <span id="cart-total">{{ text_items }}</span></button>
     <div class="off-canvas--viewport">
         <div class="off-canvas--overlay"></div>
@@ -15,13 +15,16 @@
                 <div class="cart--body">
                     {% if products or vouchers %}
                         {% for product in products %}
+                            {% if (product.price != '0грн.' and totalValue < giftSumm) or totalValue >= giftSumm%}
                             <div class="cart--item">
                                 <div class="cart--item--title">
                                     <div class="block-heading">
                                         <a href="{{ product.href }}">{{ product.name }}
                                             {% if product.option %}
-                                                {% for option in product.option %}
-                                                    <span>({{ option.name }}: {{ option.value }})</span> {% endfor %}
+                                                {% if product.price != '0грн.'%}
+                                                    {% for option in product.option %}
+                                                        <span>({{ option.name }}: {{ option.value }})</span> {% endfor %}
+                                                {% endif %}
                                             {% endif %}
                                         </a>
                                     </div>
@@ -56,6 +59,7 @@
                                 <div class="cart--item--info">
                                 </div>
                             </div>
+                            {% endif %}
                         {% endfor %}
                         {% for voucher in vouchers %}
                             <tr>
@@ -80,10 +84,10 @@
                                     <div class="cart--total--price money">{{ total.text }}</div>
                                     <div class="gift-text">
                                         <span class="wrap-svg"> <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="2em" height="2em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 16 16"><g fill="red" fill-rule="evenodd"><path d="M0 4h16v3H0z"/><path d="M12.66 9.777a.681.681 0 0 1 0 1.029a.87.87 0 0 1-1.14 0L8.485 8.064h-.996l-3.035 2.742a.87.87 0 0 1-1.14 0a.683.683 0 0 1 0-1.029l1.898-1.713L1 8v8h14V8l-4.238.064l1.898 1.713z"/><path d="M11.928.097c-1.159 0-2.623.838-3.96 2.253C6.634.935 5.17.097 4.014.097c-.592 0-1.098.221-1.46.637c-.599.684-.678 2.021-.293 3.304h1.96s-.59-1.007-.428-1.884c.015-.018.078-.051.22-.051c.573 0 1.905.678 3.057 1.935h1.845c1.157-1.264 2.42-1.935 3.013-1.935c.176 0 .22.049.22.049c.124 1.138-.432 1.886-.432 1.886h2.038c.387-1.283.23-2.62-.365-3.304c-.364-.416-.868-.637-1.46-.637z"/></g></svg></span>
-                                        {% if total.value < 5000 %}
-                                            <p>При замовленні на 5000 грн ви зможете обрати безкоштовний зразок у кошику нижче</p>
+                                        {% if total.value < giftSumm %}
+                                            <p>При замовленні на {{giftSumm}} грн ви зможете обрати безкоштовний зразок у кошику нижче</p>
                                         {% endif %}
-                                        {% if total.value >= 5000 %}
+                                        {% if total.value >= giftSumm %}
                                             <p>Оберіть безкоштовний зразок у кошику нижче</p>
                                         {% endif %}
                                     </div>
@@ -94,11 +98,11 @@
                             <div class="cart--continue-shopping" data-item="block-link">
                                 <a href="/index.php?route=checkout/cart" class="btn btn-primary">
                                     {% for total in totals %}
-                                        {% if total.value >= 5000 %}
+                                        {% if total.value >= giftSumm %}
                                             <svg class="total-gift-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="2em" height="2em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 16 16"><g fill="red" fill-rule="evenodd"><path d="M0 4h16v3H0z"/><path d="M12.66 9.777a.681.681 0 0 1 0 1.029a.87.87 0 0 1-1.14 0L8.485 8.064h-.996l-3.035 2.742a.87.87 0 0 1-1.14 0a.683.683 0 0 1 0-1.029l1.898-1.713L1 8v8h14V8l-4.238.064l1.898 1.713z"/><path d="M11.928.097c-1.159 0-2.623.838-3.96 2.253C6.634.935 5.17.097 4.014.097c-.592 0-1.098.221-1.46.637c-.599.684-.678 2.021-.293 3.304h1.96s-.59-1.007-.428-1.884c.015-.018.078-.051.22-.051c.573 0 1.905.678 3.057 1.935h1.845c1.157-1.264 2.42-1.935 3.013-1.935c.176 0 .22.049.22.049c.124 1.138-.432 1.886-.432 1.886h2.038c.387-1.283.23-2.62-.365-3.304c-.364-.416-.868-.637-1.46-.637z"/></g></svg>
                                         {% endif %}
                                         <span>Перейти до кошика
-                                        {% if total.value >= 5000 %}
+                                        {% if total.value >= giftSumm %}
                                             <br><span class="total-gift-text">і обрати подарунок</span></span>
                                         {% endif %}
                                     {% endfor %}
@@ -121,3 +125,29 @@
                     </div>
                 </div>
             </div>
+{% if remoteItem %}
+    <script>
+        $(document).ajaxComplete(function () {
+            $.ajax({
+                url: 'index.php?route=checkout/cart/remove',
+                type: 'post',
+                data: 'key={{ remoteItem }}',
+                dataType: 'json',
+                beforeSend: function () {
+                    $('#cart > button').button('loading');
+                },
+                success: function (json) {
+                    $('#cart > button').button('reset');
+
+                    $('#cart-total').html(json['total']);
+
+                    if (getURLVar('route') == 'checkout/cart' || getURLVar('route') == 'checkout/checkout') {
+                        location = 'index.php?route=checkout/cart';
+                    } else {
+                        $('#cart > ul').load('index.php?route=common/cart/info ul li');
+                    }
+                }
+            });
+        })
+    </script>
+{% endif %}
