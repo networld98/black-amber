@@ -287,6 +287,10 @@ class ControllerExtensionGiftPriceGift extends Controller {
                 );
             }
         }
+        function compareNames($a, $b) {
+            return strcmp($a['name'], $b['name']);
+        }
+        usort($res_products, 'compareNames');
         return $res_products;
     }
 

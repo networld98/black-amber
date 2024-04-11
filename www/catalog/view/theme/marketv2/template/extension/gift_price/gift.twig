@@ -156,6 +156,11 @@
         }
         hideIfEmpty('productSelect');
 
+        $('#productSelect').select2({
+            placeholder: ' --- Виберіть --- ',
+            allowClear: true
+        });
+
         function prevOptionInProduct(product_id, product_name, gift_id, summa, gift_type) {
             var img = $('#fc-image' + product_id + '-' + gift_id + '-' + summa + '-' + gift_type);
             $.ajax({
