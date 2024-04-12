@@ -1883,3 +1883,8 @@ body.active .off-canvas--viewport{
 .modal-header .close {
     margin-top: -8px;
 }
+.btn.btn-primary.btn-disable{
+    pointer-events: none;
+    cursor: pointer;
+    background-color: #eee;
+}

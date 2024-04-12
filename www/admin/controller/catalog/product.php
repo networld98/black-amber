@@ -616,6 +616,13 @@ class ControllerCatalogProduct extends Controller {
         } else {
             $data['ifra'] = '';
         }
+        if (isset($this->request->post['youtube'])) {
+            $data['youtube'] = $this->request->post['youtube'];
+        } elseif (!empty($product_info)) {
+            $data['youtube'] = $product_info['youtube'];
+        } else {
+            $data['youtube'] = '';
+        }
 
 		if (isset($this->request->post['upc'])) {
 			$data['upc'] = $this->request->post['upc'];
@@ -1321,6 +1328,7 @@ class ControllerCatalogProduct extends Controller {
 					'name'       => strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8')),
 					'model'      => $result['model'],
                     'ifra'      => $result['ifra'],
+                    'youtube'      => $result['youtube'],
 					'option'     => $option_data,
 					'price'      => $result['price']
 				);

@@ -231,9 +231,25 @@ class ControllerProductProduct extends Controller {
 
             $this->load->model('catalog/review');
 
+            if (stripos($product_info['youtube'], 'youtu.be')!==false) {
+                $product_info['youtube'] = explode('/',$product_info['youtube'])[3];
+                $product_info['youtube'] = explode('?',$product_info['youtube'])[0];
+            }
+            if (stripos($product_info['youtube'], 'feature=share')!==false) {
+                $product_info['youtube'] = explode('/',$product_info['youtube'])[4];
+                $product_info['youtube'] = explode('?',$product_info['youtube'])[0];
+            }
+            if (stripos($product_info['youtube'], 'shorts')!==false) {
+                $product_info['youtube'] = explode('/',$product_info['youtube'])[4];
+            }
+            if (stripos($product_info['youtube'], '=')!==false && stripos($product_info['youtube'], 'feature=share')==false) {
+                $product_info['youtube'] = explode('=',$product_info['youtube'])[1];
+            }
+
             $data['tab_review'] = sprintf($this->language->get('tab_review'), $product_info['reviews']);
             $data['product_id'] = (int)$this->request->get['product_id'];
             $data['ifra'] = $product_info['ifra'];
+            $data['youtube'] = $product_info['youtube'];
             $data['manufacturer'] = $product_info['manufacturer'];
             $data['manufacturers'] = $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $product_info['manufacturer_id']);
             $data['model'] = $product_info['model'];

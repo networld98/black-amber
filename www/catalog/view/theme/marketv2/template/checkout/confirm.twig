@@ -14,8 +14,13 @@
     
     {% for product in products %}
     <tr>
-      <td class="text-left"><a href="{{ product.href }}">{{ product.name }}</a> {% for option in product.option %}<span class="hide-mobile"><br /></span>
-        &nbsp;<small> - {{ option.name }}: {{ option.value }}</small> {% endfor %}
+      <td class="text-left"><a href="{{ product.href }}">{{ product.name }}</a>
+          {% for option in product.option %}
+              {% if product.price != '0грн.' %}
+                  <span class="hide-mobile"><br/></span>
+                  &nbsp;<small> - {{ option.name }}: {{ option.value }}</small>
+              {% endif %}
+          {% endfor %}
         {% if product.recurring %} <span class="hide-mobile"><br /></span>
         <span class="label label-info">{{ text_recurring_item }}</span> <small>{{ product.recurring }}</small> {% endif %}</td>
    <td class="text-left hide-mobile">{#{{ product.model }}#}</td>

@@ -78,12 +78,14 @@
         <tr>
           <td>{{ product.name }}
             {% for option in product.option %}
+              {% if product.price != '0грн.' %}
             <br />
-            &nbsp;<small> - {{ option.name }}: {{ option.value }}</small>
+            &nbsp;<small 123> - {{ option.name }}: {{ option.value }}</small>
+              {% endif %}
             {% endfor %}</td>
           <td>{{ product.model }}</td>
           <td class="text-right">{{ product.quantity }}</td>
-          <td class="text-right">{{ product.price }}</td>
+          <td class="text-right 123">{{ product.price }}</td>
           <td class="text-right">{{ product.total }}</td>
         </tr>
         {% endfor %}
