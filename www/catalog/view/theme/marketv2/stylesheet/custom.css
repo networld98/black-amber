@@ -251,7 +251,7 @@ footer hr {
     width: 100%;
     display: none;
     box-shadow: 0 10px 10px -10px #0003;
-    background: var(--color-header-bg);
+    background: var(--color-page-bg);
 }
 .header-wrapper .drop-catalog-menu.active {
     display: -webkit-box;
