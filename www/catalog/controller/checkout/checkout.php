@@ -54,6 +54,8 @@ class ControllerCheckoutCheckout extends Controller {
 			'href' => $this->url->link('checkout/checkout', '', true)
 		);
 
+        $data['total_sum'] = $this->cart->getTotal();
+        $data['custom_min_price'] = $this->config->get('config_custom_min_price');
 		$data['text_checkout_option'] = sprintf($this->language->get('text_checkout_option'), 1);
 		$data['text_checkout_account'] = sprintf($this->language->get('text_checkout_account'), 2);
 		$data['text_checkout_payment_address'] = sprintf($this->language->get('text_checkout_payment_address'), 2);

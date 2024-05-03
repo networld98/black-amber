@@ -22,6 +22,28 @@
         <div id="content" class="{{ class }}">
             <h1>Оформлення замовлення</h1>
             <div class="panel-group" id="accordion">
+                {% if custom_min_price and total_sum < custom_min_price %}
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">Не вистачає товарів для оформлення замовлення</h4>
+                    </div>
+                    <div class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            Мінімальне замовлення {{ custom_min_price }}грн., поверніться до <a href="/shop/"><strong>каталогу</strong></a> і додайте товарів, або до
+                            <a href="/cart/"><strong>кошику</strong></a> і змініть кількість товару!
+                            <div class="buttons not-sum">
+                                <div class="pull-left">
+                                    <a href="/cart/" class="btn btn-primary"><strong>Повернутись до кошика</strong></a>
+                                </div>
+                                <div class="pull-right">
+                                    <a href="/shop/" class="btn btn-primary"><strong>Повернутись до каталогу</strong></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                {% else %}
                 {#        <div class="panel panel-default">#}
                 {#          <div class="panel-heading">#}
                 {#            <h4 class="panel-title">{{ text_checkout_option }}</h4>#}
@@ -91,6 +113,7 @@
                         <div class="panel-body"></div>
                     </div>
                 </div>
+                {% endif %}
             </div>
             {{ content_bottom }}</div>
         {{ column_right }}</div>

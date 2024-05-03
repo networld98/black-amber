@@ -1700,6 +1700,16 @@ body.active .off-canvas--viewport{
     }
 }
 @media (min-width: 768px){
+    #accordion .not-sum .btn.btn-primary {
+        margin-top: 0;
+        margin-bottom: 0px;
+    }
+    #accordion .not-sum.buttons{
+        margin-top: 15px;
+    }
+    .btn.btn-primary {
+        width: inherit;
+    }
     .modal-search.active #search {
         margin-left:30px;
     }

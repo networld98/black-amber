@@ -196,7 +196,11 @@ class ControllerSettingSetting extends Controller {
             $data['config_custom_field_2'] = $this->config->get('config_custom_field_2');
         }
 
-
+        if (isset($this->request->post['config_custom_min_price'])) {
+            $data['config_custom_min_price'] = $this->request->post['config_custom_min_price'];
+        } else {
+            $data['config_custom_min_price'] = $this->config->get('config_custom_min_price');
+        }
 
 		if (isset($this->request->post['config_meta_keyword'])) {
 			$data['config_meta_keyword'] = $this->request->post['config_meta_keyword'];
