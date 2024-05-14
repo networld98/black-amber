@@ -213,7 +213,6 @@ class ControllerProductProduct extends Controller {
                 'text' => $product_info['name'],
                 'href' => $this->url->link('product/product', $url . '&product_id=' . $this->request->get['product_id'])
             );
-
             $this->document->setTitle($product_info['meta_title']);
             $this->document->setDescription($product_info['meta_description']);
             $this->document->setKeywords($product_info['meta_keyword']);
@@ -245,14 +244,16 @@ class ControllerProductProduct extends Controller {
                 $product_info['youtube'] = explode('?',$product_info['youtube'])[0];
                 $product_info['vertical'] = 'Y';
             }
-            echo $product_info['vertical'];
             if (stripos($product_info['youtube'], '=')!==false && stripos($product_info['youtube'], 'feature=share')==false) {
                 $product_info['youtube'] = explode('=',$product_info['youtube'])[1];
             }
-
+            $data['date_modified'] = date('Y-m-d\TH:i:sP', strtotime($product_info['date_modified']));
             $data['tab_review'] = sprintf($this->language->get('tab_review'), $product_info['reviews']);
             $data['product_id'] = (int)$this->request->get['product_id'];
             $data['ifra'] = $product_info['ifra'];
+            $data['price'] = $product_info['price'];
+            $data['price_value'] = intval(floatval(preg_replace('/[^0-9.]/', '', $product_info['price'])));
+            $data['date'] = date('Y-m-d');
             $data['youtube'] = $product_info['youtube'];
             $data['vertical'] = $product_info['vertical'];
             $data['manufacturer'] = $product_info['manufacturer'];
@@ -262,7 +263,7 @@ class ControllerProductProduct extends Controller {
             $data['reward'] = $product_info['reward'];
             $data['points'] = $product_info['points'];
             $data['description'] = html_entity_decode($product_info['description'], ENT_QUOTES, 'UTF-8');
-
+            $data['description_youtube'] = strip_tags(html_entity_decode($product_info['description'], ENT_QUOTES, 'UTF-8'));
             if ($product_info['quantity'] <= 0) {
                 $data['stock'] = $product_info['stock_status'];
             } elseif ($this->config->get('config_stock_display')) {
@@ -343,6 +344,8 @@ class ControllerProductProduct extends Controller {
                             'name'                    => $option_value['name'],
                             'image'                   => $this->model_tool_image->resize($option_value['image'], 50, 50),
                             'price'                   => $price,
+                            'price_value'             => intval(floatval(preg_replace('/[^0-9.]/', '', $price)))+intval(floatval(preg_replace('/[^0-9.]/', '', $data['price']))),
+                            'date'                    => date('Y-m-d'),
                             'price_prefix'            => $option_value['price_prefix']
                         );
                     }
@@ -358,7 +361,6 @@ class ControllerProductProduct extends Controller {
                     'required'             => $option['required']
                 );
             }
-
             if ($product_info['minimum']) {
                 $data['minimum'] = $product_info['minimum'];
             } else {
@@ -381,6 +383,7 @@ class ControllerProductProduct extends Controller {
 
             $data['reviews'] = sprintf($this->language->get('text_reviews'), (int)$product_info['reviews']);
             $data['rating'] = (int)$product_info['rating'];
+            $data['review_count'] = (int)$product_info['reviews'];
 
             // Captcha
             if ($this->config->get('captcha_' . $this->config->get('config_captcha') . '_status') && in_array('review', (array)$this->config->get('config_captcha_page'))) {
@@ -433,6 +436,7 @@ class ControllerProductProduct extends Controller {
                     'name'        => $result['name'],
                     'description' => utf8_substr(trim(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8'))), 0, $this->config->get('theme_' . $this->config->get('config_theme') . '_product_description_length')) . '..',
                     'price'       => $price,
+                    'price_value' => floatval(preg_replace('/[^0-9.]/', '', $price)),
                     'special'     => $special,
                     'tax'         => $tax,
                     'minimum'     => $result['minimum'] > 0 ? $result['minimum'] : 1,
@@ -441,7 +445,6 @@ class ControllerProductProduct extends Controller {
                 );
             }
             $data['tags'] = array();
-
             if ($product_info['tag']) {
                 $tags = explode(',', $product_info['tag']);
 
@@ -665,7 +668,7 @@ class ControllerProductProduct extends Controller {
                 $price = $this->currency->format($this->tax->calculate($recurring_info['price'] * $quantity, $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
 
                 if ($recurring_info['duration']) {
-                    $text = $trial_text . sprintf($this->language->get('text_payment_description'), $price, $recurring_info['cycle'], $frequencies[$recurring_info['frequency']], $recurring_info['duration']);
+                    $text = $trial_text . sprintf($this->language->get('text_payment_desdescription'), $price, $recurring_info['cycle'], $frequencies[$recurring_info['frequency']], $recurring_info['duration']);
                 } else {
                     $text = $trial_text . sprintf($this->language->get('text_payment_cancel'), $price, $recurring_info['cycle'], $frequencies[$recurring_info['frequency']], $recurring_info['duration']);
                 }

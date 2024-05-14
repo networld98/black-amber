@@ -1,9 +1,9 @@
 {{ header }}
 {{ content_top }}
 <div id="product-product" class="catalog--root">
-    <ul class="breadcrumbs--root hidden-xs hidden-sm">
+    <ul class="breadcrumbs--root hidden-xs hidden-sm" itemscope itemtype="http://schema.org/BreadcrumbList">
         {% for breadcrumb in breadcrumbs %}
-            <li class="block-link" ><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+            <li class="block-link" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="{{ breadcrumb.href }}" itemprop="item" href="https://example.com/"><span itemprop="name">{{ breadcrumb.text }}</span></a><meta itemprop="position" content="{{ loop.index }}" /></li>
         {% endfor %}
     </ul>
     <div class="row">{{ column_left }}
@@ -14,7 +14,10 @@
         {% else %}
             {% set class = 'col-sm-12' %}
         {% endif %}
-        <div id="content" class="{{ class }} product-page--container">
+        <div id="content" class="{{ class }} product-page--container" itemscope="" itemtype="http://schema.org/Product">
+            <meta itemprop="name" content="{{ heading_title }}">
+            <meta itemprop="image" content="{{ thumb }}">
+            <meta itemprop="description" content="{{ description_youtube }}">
             <div class="row"> {% if column_left or column_right %}
                     {% set class = 'col-sm-6' %}
                 {% else %}
@@ -23,7 +26,15 @@
                 <div class="{{ class }}">
                     <h1>{{ heading_title }}</h1>
                     {% if review_status %}
-                    <div class="rating">
+                    <div class="rating" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+                        {% if review_count == 0 %}
+                            <meta itemprop="reviewCount" content="1">
+                        {% else %}
+                            <meta itemprop="reviewCount" content="{{ review_count }}">
+                        {% endif %}
+                        <meta itemprop="ratingValue" content="{{ rating }}">
+                        <meta itemprop="bestRating" content="5">
+                        <meta itemprop="worstRating" content="0">
                         <a href="{{ review_link }}">
                             <p>{% for i in 1..5 %}
                                     {% if rating < i %}<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>{% else %}<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span>{% endif %}
@@ -37,7 +48,7 @@
                         {% if thumb or images %}
                             <ul class="thumbnails">
                                 {% if thumb %}
-                                    <li><a  class="lightview thumbnail big-photo" data-lightview-group="mixed" href="{{ popup }}" title="{{ heading_title }}"><img src="{{ thumb }}" title="{{ heading_title }}" alt="{{ heading_title }}" /></a></li>
+                                    <li><a  class="lightview thumbnail big-photo" data-lightview-group="mixed" href="{{ popup }}" title="{{ heading_title }}"><img src="{{ thumb }}" title="{{ heading_title }}" alt="{{ heading_title }}"/></a></li>
                                 {% endif %}
                                 {% if images %}
                                     {% for image in images %}
@@ -66,7 +77,7 @@
                         <li>{{ text_stock }} {{ stock }}</li>
                     </ul>
                     {% if price %}
-                        <ul class="list-unstyled">
+                        <ul class="list-unstyled" >
                             {% if not special %}
                                 <li>
                                     <h2>
@@ -103,7 +114,16 @@
                             {% endif %}
                         </ul>
                     {% endif %}
-                    <div id="product"> {% if options and quantity>0 %}
+                    <div id="product" {% if options == null %}itemprop="offers" itemscope="" itemtype="https://schema.org/Offer" {% endif %}>
+                        {% if options == null %}
+                            <meta itemprop="priceCurrency" content="UAH">
+                            <meta itemprop="price" content="{{ price_value }}">
+                            <meta itemprop="priceValidUntil" content="{{ date }}">
+                            <link itemprop="availability" href="http://schema.org/InStock">
+                            <meta itemprop="description" content="{{ description_youtube }}">
+                            <meta itemprop="brand" content="{{ manufacturer }}">
+                        {% endif %}
+                        {% if options and quantity>0 %}
                             <hr>
                             <h3>{{ text_option }}</h3>
                             {% for option in options %}
@@ -125,7 +145,14 @@
                                     <div class="form-group{% if option.required %} required {% endif %}">
                                         <label class="control-label">{{ option.name }}</label>
                                         <div class="product-props-block" id="input-option{{ option.product_option_id }}"> {% for option_value in option.product_option_value %}
-                                                <div class="radio">
+                                                <div class="radio" itemprop="offers" itemscope="" itemtype="https://schema.org/Offer">
+                                                    <meta itemprop="priceCurrency" content="UAH">
+                                                    <meta itemprop="price" content="{{ option_value.price_value }}">
+                                                    <meta itemprop="priceValidUntil" content="{{ option_value.date }}">
+                                                    <link itemprop="availability" href="http://schema.org/InStock">
+                                                    <meta itemprop="description" content="{{ description_youtube }}">
+                                                    <meta itemprop="brand" content="{{ manufacturer }}">
+                                                    <meta itemprop="sku" content="{{ option_value.name }}">
                                                     <label class="radios--value-button">
                                                         <input type="radio" class="radios--input" name="option[{{ option.product_option_id }}]" value="{{ option_value.product_option_value_id }}" />
                                                         {% if option_value.image %} <img src="{{ option_value.image }}" alt="{{ option_value.name }} {% if option_value.price %} {{ option_value.price_prefix }} {{ option_value.price }} {% endif %}" class="img-thumbnail" /> {% endif %}
@@ -264,6 +291,8 @@
                             {% if youtube %}
                                 <div id="video-schema" itemprop="video" itemscope itemtype="http://schema.org/VideoObject">
                                     <div id="video-schema-meta">
+                                        <meta itemprop="uploadDate" content="{{ date_modified }}"/>
+                                        <meta itemprop="description" content="{{ description_youtube }}"/>
                                         <link itemprop="url" href="https://youtu.be/{{ youtube }}"/>
                                         <link itemprop="thumbnailUrl" href="https://img.youtube.com/vi/{{ youtube }}/maxresdefault.jpg"/>
                                         <meta itemprop="name" content="{{ heading_title }}"/>

@@ -281,7 +281,7 @@ footer hr {
 .header-wrapper .catalog-menu-drop a{
     padding-right:5px!important;
 }
-.header-wrapper .catalog-menu-drop.active a, .header-wrapper .catalog-menu-drop.active a:hover, .header-wrapper .catalog-menu-drop.active:hover a{
+.header-wrapper .catalog-menu-drop.active a, .header-wrapper .catalog-menu-drop.active a:hover, .header-wrapper .catalog-menu-drop.active:hover a, .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover{
     background: white;
 }
 .header-wrapper .catalog-menu-drop svg {
@@ -1219,8 +1219,12 @@ textarea.form-control {
 .header-wrapper .drop-catalog-menu .nav.navbar-nav>li.dropdown a{
     display: flex;
     justify-content: space-between;
+    background: #fff;
 }
-
+.header-wrapper .drop-catalog-menu .nav.navbar-nav>li.dropdown a:hover{
+    color: #000;
+    background: #eae8e7;
+}
 .header-wrapper .drop-catalog-menu .nav.navbar-nav>li.dropdown a .oop_cls_div_exp {
     padding-left: 12px;
 }

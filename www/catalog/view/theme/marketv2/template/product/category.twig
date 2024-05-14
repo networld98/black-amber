@@ -93,8 +93,10 @@
       </div>
       <div class="row">
         {% for product in products %}
-          <div class="product-layout col-lg-2_5 col-md-4 col-sm-4 col-xs-6">
-            <div class="product-thumb transition" >
+          <div class="product-layout col-lg-2_5 col-md-4 col-sm-4 col-xs-6" itemscope itemtype="http://schema.org/Product">
+            <div class="product-thumb transition">
+                <meta itemprop="description" content="{{ product.description_youtube }}">
+                <meta itemprop="image" content="{{ product.thumb }}">
               <div class="image">
                 <a href="{{ product.href }}">
                     {% if product.thumb %}
@@ -116,15 +118,23 @@
                 {% endif %}
               </div>
             </div>
-            <a href="{{ product.href }}">
+            <a href="{{ product.href }}" itemprop="url">
               <div class="caption product--details-container">
                 <div class="product--details">
                   <div class="product--details-wrapper">
-                    <p class="product--title">
+                    <p class="product--title" itemprop="name">
                       {{ product.name }}
                     </p>
                     {% if product.review_status %}
-                      <div class="rating">
+                      <div class="rating" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+                          {% if review_count == 0 %}
+                              <meta itemprop="reviewCount" content="1">
+                          {% else %}
+                              <meta itemprop="reviewCount" content="{{ product.review_count }}">
+                          {% endif %}
+                          <meta itemprop="ratingValue" content="{{ product.rating }}">
+                          <meta itemprop="bestRating" content="5">
+                          <meta itemprop="worstRating" content="0">
                         {% for i in 1..5 %}
                           {% if product.rating < i %}<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>{% else %}<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span>{% endif %}
                         {% endfor %}
@@ -137,13 +147,17 @@
             <span class="product--from">
               від&nbsp;
             </span>
-                      <span class="product--price money">
+                      <span class="product--price money" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                        <meta itemprop="priceCurrency" content="UAH">
+                        <meta itemprop="price" content="{{ product.price_value }}">
+                        <meta itemprop="priceValidUntil" content="{{ product.date }}">
+                       <link itemprop="availability" href="http://schema.org/InStock">
             {% if product.price %}
               <p class="price">
                 {% if not product.special %}
                   {{ product.price }}
                 {% else %}
-                  <span class="price-new">{{ product.special }}</span> {#<span class="price-old">{{ product.price }}</span>#}
+                  <span class="price" class="price-new">{{ product.special }}</span> {#<span class="price-old">{{ product.price }}</span>#}
                 {% endif %}
                 {% if product.tax %}
                   <span class="price-tax">{{ text_tax }} {{ product.tax }}</span>
