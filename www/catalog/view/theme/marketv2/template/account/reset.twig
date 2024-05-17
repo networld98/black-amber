@@ -1,8 +1,8 @@
 {{ header }}
 <div id="account-reset" class="container">
-  <ul class="breadcrumb">
+  <ul class="breadcrumbs--root hidden-xs hidden-sm" itemscope itemtype="http://schema.org/BreadcrumbList">
     {% for breadcrumb in breadcrumbs %}
-    <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+      <li class="block-link" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="{{ breadcrumb.href }}" itemprop="item" href="https://example.com/"><span itemprop="name">{{ breadcrumb.text }}</span></a><meta itemprop="position" content="{{ loop.index }}" /></li>
     {% endfor %}
   </ul>
   <div class="row">{{ column_left }}

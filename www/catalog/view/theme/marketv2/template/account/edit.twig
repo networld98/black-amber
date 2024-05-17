@@ -1,8 +1,8 @@
 {{ header }}
 <div id="account-edit" class="catalog--root">
-    <ul class="breadcrumbs--root">
+    <ul class="breadcrumbs--root hidden-xs hidden-sm" itemscope itemtype="http://schema.org/BreadcrumbList">
         {% for breadcrumb in breadcrumbs %}
-            <li class="block-link"><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+            <li class="block-link" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="{{ breadcrumb.href }}" itemprop="item" href="https://example.com/"><span itemprop="name">{{ breadcrumb.text }}</span></a><meta itemprop="position" content="{{ loop.index }}" /></li>
         {% endfor %}
     </ul>
   {% if error_warning %}

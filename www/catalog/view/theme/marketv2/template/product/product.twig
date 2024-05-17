@@ -252,7 +252,7 @@
                                 <input type="text" name="quantity" value="{{ minimum }}" size="2" id="input-quantity" class="form-control" />
                                 <input type="hidden" name="product_id" value="{{ product_id }}" />
                                 <br />
-                                <button type="button" id="button-cart" data-loading-text="{{ text_loading }}" class="product-form--add-to-cart">{{ button_cart }}</button>
+                                <button type="button" data-toggle="tooltip" title="{{ button_cart }}" id="button-cart" data-loading-text="{{ text_loading }}" class="product-form--add-to-cart">{{ button_cart }}</button>
                             {% endif %}
                             <button type="button" data-toggle="tooltip" class="listfully__add__btn" title="{{ button_wishlist }}" onclick="wishlist.add('{{ product_id }}');"><i class="fa fa-heart"></i>&nbsp; Додати до переліку побажань</button>
 
@@ -599,8 +599,8 @@
                                                     </p>
                                                     <div class="product-form--button-container" data-enabled="true" data-item="secondary-button">
                                                         <div class="button-group product-form--button-container">
-                                                            <button type="button" data-id="{{ product.product_id }}" data-loading-text="{{ text_loading }}" class="product-form--add-to-cart-feat">Додати у кошик</button>
-                                                            {#                    <button type="button" data-toggle="tooltip" title="{{ button_wishlist }}" onclick="wishlist.add('{{ product.product_id }}');"><i class="fa fa-heart"></i></button>#}
+                                                            <button type="button" data-toggle="tooltip" title="В кошик"data-id="{{ product.product_id }}" data-loading-text="{{ text_loading }}" class="product-form--add-to-cart-feat">Додати у кошик</button>
+                                                            <button type="button" data-toggle="tooltip" title="В обране" onclick="wishlist.add('{{ product.product_id }}');" class="product-form--add-to-cart wishlist"><i class="fa fa-heart"></i>&nbsp;Додати в список бажань</button>
                                                             {#                    <button type="button" data-toggle="tooltip" title="{{ button_compare }}" onclick="compare.add('{{ product.product_id }}');"><i class="fa fa-exchange"></i></button>#}
                                                         </div>
                                                     </div>

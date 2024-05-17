@@ -1,10 +1,10 @@
 {{ header }}
 <div id="account-register" class="catalog--root">
-  <ul class="breadcrumbs--root">
-    {% for breadcrumb in breadcrumbs %}
-    <li class="block-link"><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
-    {% endfor %}
-  </ul>
+    <ul class="breadcrumbs--root hidden-xs hidden-sm" itemscope itemtype="http://schema.org/BreadcrumbList">
+        {% for breadcrumb in breadcrumbs %}
+            <li class="block-link" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="{{ breadcrumb.href }}" itemprop="item" href="https://example.com/"><span itemprop="name">{{ breadcrumb.text }}</span></a><meta itemprop="position" content="{{ loop.index }}" /></li>
+        {% endfor %}
+    </ul>
   {% if error_warning %}
   <div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}</div>
   {% endif %}

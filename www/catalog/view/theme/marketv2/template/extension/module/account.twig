@@ -4,7 +4,8 @@
   {% endif %}
     <a href="{{ order }}" class="list-group-item">{{ text_order }}</a>
   {% if logged %}
-  <a href="{{ edit }}" class="list-group-item">{{ text_edit }}</a> <a href="{{ password }}" class="list-group-item">{{ text_password }}</a>
+      <a href="{{ wishlist }}" class="list-group-item">{{ text_wishlist }}</a>
+      <a href="{{ edit }}" class="list-group-item">{{ text_edit }}</a> <a href="{{ password }}" class="list-group-item">{{ text_password }}</a>
   {% endif %}
   {% if logged %}
   <a href="{{ logout }}" class="list-group-item">{{ text_logout }}</a>
