@@ -1934,6 +1934,9 @@ body.active .off-canvas--viewport{
     cursor: pointer;
     background-color: #eee;
 }
+#video-schema {
+    margin-top:15px;
+}
 #video-schema .normal {
     height: auto;
     aspect-ratio: 16 / 9;
