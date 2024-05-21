@@ -288,6 +288,10 @@
                 <div class="{{ class }}">
                     <div class="tab-content">
                         <div class="tab-pane active" id="tab-description">
+                            {{ description }}
+                            {% if ifra %}
+                                <a href="{{ ifra }}"><img class="ifra-btn" src="/image/ifra_button.jpg" alt="IFRA sertificat"></a>
+                            {% endif %}
                             {% if youtube %}
                                 <div id="video-schema" itemprop="video" itemscope itemtype="http://schema.org/VideoObject">
                                     <div id="video-schema-meta">
@@ -322,10 +326,6 @@
                                     }
                                 </script>
 
-                            {% endif %}
-                            {{ description }}
-                            {% if ifra %}
-                                <a href="{{ ifra }}"><img class="ifra-btn" src="/image/ifra_button.jpg" alt="IFRA sertificat"></a>
                             {% endif %}
                         </div>
                         {% if attribute_groups %}
