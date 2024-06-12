@@ -213,8 +213,8 @@ class ControllerProductProduct extends Controller {
                 'text' => $product_info['name'],
                 'href' => $this->url->link('product/product', $url . '&product_id=' . $this->request->get['product_id'])
             );
-            $this->document->setTitle($product_info['meta_title']);
-            $this->document->setDescription($product_info['meta_description']);
+            $this->document->setTitle($product_info['meta_title'].' | '.$this->config->get('config_name'));
+            $this->document->setDescription(strip_tags(html_entity_decode($product_info['description'], ENT_QUOTES, 'UTF-8')));
             $this->document->setKeywords($product_info['meta_keyword']);
             $this->document->addLink($this->url->link('product/product', 'product_id=' . $this->request->get['product_id']), 'canonical');
 			$this->document->addScript('catalog/view/javascript/jquery/magnific/jquery.magnific-popup.min.js');
