@@ -1694,7 +1694,7 @@ body.active .off-canvas--viewport{
         width:100%;
     }
     .off-canvas--viewport .close {
-        right: 12px;
+        right: 22px;
         color: #000;
         z-index: 101;
     }
