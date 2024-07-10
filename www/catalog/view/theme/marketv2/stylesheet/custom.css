@@ -1954,10 +1954,3 @@ body.active .off-canvas--viewport{
     aspect-ratio: 9 / 16;
     margin: 15px auto 0;
 }
-#wishlist-total .fa-heart{
-    font-size: 16px;
-    padding: 11px;
-}
-#wishlist-total span {
-    align-self: center;
-}
