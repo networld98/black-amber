@@ -1729,7 +1729,7 @@ body.active .off-canvas--viewport{
         font-size: 14px;
     }
     #wishlist-total .fa-heart {
-        padding: 8px;
+        padding: 8px!important;
     }
     .navbar-default .navbar-toggle{
         margin:0;
@@ -1838,6 +1838,9 @@ body.active .off-canvas--viewport{
     background: transparent;
 }
 .tweet_iframe_widget {width: auto!important;}
+.row.sales-block.ass h3.section-heading {
+    width:100%;
+}
 @media (min-width: 768px) and (max-width: 820px) {
     .navbar-default .navbar-nav>li>a {
         padding: 7px;

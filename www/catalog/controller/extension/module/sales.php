@@ -19,7 +19,7 @@ class ControllerExtensionModuleSales extends Controller {
                 $show = NULL;
                 $product_filters = $this->model_catalog_product->getProductFilters($result['product_id']);
                 foreach ($product_filters[0]['filter'] as $filters){
-                 if($filters['filter_id']== "Акція дня" || $filters['filter_id'] == 18){
+                 if($filters['name']== "Акція дня" || $filters['filter_id'] == 18){
                      $show = "Y";
                  }
                 }

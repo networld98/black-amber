@@ -3,7 +3,7 @@
   {% set count = 0 %}
   {% for key, product in products %}
     {% set count = count + 1 %}
-    {% if key == 1 %}
+    {% if key == 0 %}
       <h3 class="section-heading">{{ heading_title }}</h3>
     {% endif %}
     <div class="{% if key < 6 %}show{% endif %} product-layout col-lg-2 col-md-4 col-sm-6 col-xs-6">
